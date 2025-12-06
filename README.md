@@ -1,5 +1,5 @@
-**Text Summarization with RAG**
-**Overview**
+# Text Summarization with RAG
+# Overview
 This project is a simple text summarization app built with Python and Streamlit.
 It cleans raw text, chunks it, and generates summaries using:
 
@@ -7,7 +7,7 @@ Extractive summarization (word frequency) - works without any API
 
 Hugging Face LLM (optional) - for better summaries when token is provided
 
-**Features**
+# Features
 ✨ Text cleaning (HTML removal, punctuation normalization)
 ✨ Intelligent chunking at sentence boundaries
 ✨ Extractive summarization (no API needed)
@@ -15,7 +15,7 @@ Hugging Face LLM (optional) - for better summaries when token is provided
 ✨ Minimal, clean Streamlit web UI
 ✨ Download summaries as text files
 
-**Project Structure**
+# Project Structure
 text
 config/          → Settings & environment variables
 ingestion/       → Text cleaning and chunking
@@ -25,7 +25,7 @@ ui/              → Streamlit web interface
 utils/           → Utilities package
 data/            → Raw and processed text directories
 
-#Installation
+# Installation
 1. Clone the Repository
 bash
 git clone https://github.com/<your-username>/text-summarization-rag.git
@@ -41,23 +41,16 @@ pip install -r requirements.txt
 bash
 cp env.example .env
 
-# Edit .env and add your Hugging Face token
-# HUGGINGFACEHUB_API_TOKEN=hf_your_token_here
+Edit .env and add your Hugging Face token
+HUGGINGFACEHUB_API_TOKEN=hf_your_token_here
 Get Your Hugging Face Token
 Go to https://huggingface.co/
-
 Sign up or log in (free)
-
 Visit https://huggingface.co/settings/tokens
-
 Click "New token"
-
 Name: rag-summarizer
-
 Select: Read permission
-
 Copy the token
-
 Paste into .env file:
 
 text
@@ -67,18 +60,15 @@ bash
 python main.py
 Open your browser at http://localhost:8501
 
-**Methodology**
+# Methodology
 1. Ingestion Phase
-TextCleaner removes HTML tags and normalizes whitespace/punctuation
-
-TextChunker splits large text into overlapping chunks at sentence boundaries
+TextCleaner removes HTML tags and normalizes whitespace/punctuation.
+TextChunker splits large text into overlapping chunks at sentence boundaries.
 
 2. Summarization Phase
-If Hugging Face token is set → tries to use facebook/bart-large-cnn model
-
-If token is missing or fails → falls back to word-frequency extractive summarization
-
-Both methods produce good summaries; HF model is higher quality
+If Hugging Face token is set → tries to use facebook/bart-large-cnn model.
+If token is missing or fails → falls back to word-frequency extractive summarization.
+Both methods produce good summaries; HF model is higher quality.
 
 3. UI Phase
 Simple Streamlit interface for text input
@@ -96,16 +86,16 @@ bash
 git rm --cached .env
 git commit -m "Remove .env from tracking"
 
-**File	Purpose**
-main.py	Entry point - runs Streamlit app
-config/settings.py	Loads environment variables
-ingestion/text_cleaner.py	Cleans text (BeautifulSoup)
-ingestion/chunker.py	Splits text into chunks
-generation/summarizer.py	Generates summaries (with HF fallback)
-ui/streamlit_app.py	Web interface
-retrieval/retriever.py	RAGFlow integration (for future use)
+# File	Purpose
+1. main.py	Entry point - runs Streamlit app
+2. config/settings.py	Loads environment variables
+3. ingestion/text_cleaner.py	Cleans text (BeautifulSoup)
+4. ingestion/chunker.py	Splits text into chunks
+5. generation/summarizer.py	Generates summaries (with Hugging face fallback)
+6. ui/streamlit_app.py	Web interface
+7. retrieval/retriever.py	RAGFlow integration (for future use)
 
-**Testing**
+# Testing
 Test 1: Simple Text
 text
 Artificial Intelligence is changing the world. Machine learning is a subset of AI. 
@@ -122,7 +112,7 @@ Try different chunk sizes (500-2000)
 Try different summary lengths (1-10 sentences)
 See how results change
 
-**License**
+# License
 MIT License - feel free to use for learning and projects
 
 **Questions?**
