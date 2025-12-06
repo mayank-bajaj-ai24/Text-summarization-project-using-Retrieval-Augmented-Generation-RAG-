@@ -37,7 +37,7 @@ text-summarization-rag/
 
 ### 1️⃣ Clone the Repository
 ```bash
-git clone https://github.com/<your-username>/text-summarization-rag.git
+git clone https://github.com/<mayank-bajaj-ai24>/text-summarization-rag.git
 cd text-summarization-rag
 ```
 
