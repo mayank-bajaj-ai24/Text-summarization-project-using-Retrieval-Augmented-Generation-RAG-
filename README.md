@@ -83,18 +83,18 @@ Then open your browser at [http://localhost:8501](http://localhost:8501)
 
 ## 🧩 Methodology  
 
-### **1. Ingestion Phase**
-- `TextCleaner` removes HTML and normalizes text.  
-- `TextChunker` splits large text into overlapping chunks at sentence boundaries.  
+### 1. Ingestion Phase  
+- `TextCleaner` uses **BeautifulSoup** to strip HTML tags and extract clean text from raw input, then normalizes whitespace and punctuation for consistent downstream processing.
+- `TextChunker` splits the cleaned text into overlapping chunks at sentence boundaries so that each chunk is coherent and suitable for summarization.  
 
-### **2. Summarization Phase**
-- If a Hugging Face token is set → uses `facebook/bart-large-cnn` for high-quality abstractive summaries.  
-- If not → falls back to **extractive summarization** (word frequency-based).  
+### 2. Summarization Phase  
+- If a Hugging Face API token is available, the app uses the `facebook/bart-large-cnn` model for high-quality abstractive summarization.
+- If the token is missing or the LLM call fails, the app falls back to a **word-frequency-based extractive summarizer**, which works fully offline and requires no external APIs.
 
-### **3. UI Phase**
-- Streamlit interface for text input.  
-- Adjustable chunk size and summary length.  
-- Displays both output summary and chunked text.  
+### 3. UI Phase  
+- A **Streamlit** web interface lets users paste or type text, adjust chunk size, and control the desired summary length in a simple, interactive UI. 
+- The app displays the generated summary along with the underlying chunks, and allows users to download the summary as a text file for later use.
+  
 
 ***
 
