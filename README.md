@@ -1,15 +1,12 @@
 # Text Summarization with RAG
 # Overview
-This project is a simple text summarization app built with Python and Streamlit.
-It cleans raw text, chunks it, and generates summaries using:
-
-Extractive summarization (word frequency) - works without any API
-
-Hugging Face LLM (optional) - for better summaries when token is provided
+This project is a simple text summarization app built with Python and Streamlit.It cleans raw text, chunks it, and generates summaries using:
+a. Extractive summarization (word frequency) - works without any API
+b.Hugging Face LLM (optional) - for better summaries when token is provided
 
 # Features
-✨ Text cleaning (HTML removal, punctuation normalization)
-✨ Intelligent chunking at sentence boundaries
+✨ Text cleaning (HTML removal, punctuation normalization) 
+✨ Intelligent chunking at sentence boundaries 
 ✨ Extractive summarization (no API needed)
 ✨ Optional Hugging Face LLM summarization
 ✨ Minimal, clean Streamlit web UI
