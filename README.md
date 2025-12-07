@@ -7,11 +7,11 @@ A practical **Retrieval-Augmented Generation (RAG)** app for long-text summariza
 ## 🌟 Features  
 
 - 🧹 **Robust Ingestion:** Cleans raw text (HTML, control chars, noisy punctuation) and splits it into coherent chunks.  
-- 🧮 **Embedding-Based Index:** Uses a sentence-transformer model to embed chunks and store them in a vector index for fast similarity search.  
-- 🔍 **True RAG Retrieval:** For each query/summary request, retrieves the most relevant chunks via vector similarity before summarization.  
+- 🧮 **Indexed Chunks:** Indexes chunks using TF‑IDF (scikit‑learn) so they can be efficiently searched.  
+- 🔍 **RAG Retrieval:** For each summary request, retrieves the most relevant chunks via cosine similarity over the TF‑IDF index before summarization.  
 - 🧩 **Hybrid Summarization:**  
   - **Extractive:** Word-frequency-based summarizer (offline, no API).  
-  - **Abstractive (Optional):** Hugging Face LLM (e.g., `facebook/bart-large-cnn`) via HuggingFaceHub.  
+  - **Abstractive:** Hugging Face LLM (e.g., facebook/bart-large-cnn) via the Hugging Face Inference API.  
 - 🖥️ **Streamlit Dashboard:** Clean UI to paste text, configure chunking, retrieval, and summary length.  
 - 💾 **Exportable Output:** Download generated summaries as plain `.txt` files.  
 
@@ -22,9 +22,9 @@ A practical **Retrieval-Augmented Generation (RAG)** app for long-text summariza
 ```bash
 text-summarization-rag/
 ├── config/               # Settings & environment variables
-├── ingestion/            # Text cleaning, chunking, embedding & indexing
-├── retrieval/            # Vector similarity search over embedded chunks
-├── generation/           # Extractive + optional HF-based summarization
+├── ingestion/            # Text cleaning and chunking
+├── retrieval/            # TF-IDF-based similarity search over chunks
+├── generation/           # Extractive + Hugging Face Inference API summarization
 ├── ui/                   # Streamlit web UI
 ├── utils/                # Helper utilities (placeholders/extensions)
 ├── data/                 # Local storage for raw text / indices
@@ -100,18 +100,18 @@ Then open the app in your browser:
 
 - `TextCleaner` strips HTML with **BeautifulSoup**, removes control characters, and normalizes whitespace and punctuation to create a clean document.  
 - `TextChunker` splits the cleaned document into overlapping chunks (configurable size and overlap) at sentence/whitespace boundaries.  
-- An embedding model from **sentence-transformers** converts each chunk into a vector; these vectors and their metadata are stored in an in-memory or lightweight vector index, preparing the data for retrieval.  
+- A TF‑IDF vectorizer from scikit‑learn converts each chunk into a sparse vector; these vectors are stored in an in‑memory index, preparing the data for retrieval.
 
 ### 2. Retrieval (R in RAG)  
 
-- When the user requests a summary, the app embeds the input (or a query derived from it) using the same sentence-transformer model.  
-- It performs **vector similarity search** over the indexed chunk embeddings to select the top‑k most relevant chunks as context.  
+- When the user requests a summary, the app vectorizes the input text with the same TF‑IDF model.  
+- It performs cosine similarity search over the indexed chunk vectors to select the top‑k most relevant chunks as context.  
 - These retrieved chunks form the “knowledge base” that conditions the summarization step, following the standard retriever → generator RAG pattern.  
 
 ### 3. Generation (G in RAG)  
 
 - **Primary path:** The retrieved chunks are concatenated into a context window and passed to the summarization module.  
-- **If Hugging Face is enabled:** a model like `facebook/bart-large-cnn` (via HuggingFaceHub) produces an abstractive summary over the retrieved context.  
+- **If Hugging Face is enabled:** a model like `facebook/bart-large-cnn` (via the Hugging Face Inference API) produces an abstractive summary over the retrieved context.  
 - **Fallback path:** A word-frequency-based extractive summarizer scores sentences and selects the most informative ones from the retrieved context, working fully offline.  
 
 ### 4. UI & Output  
@@ -149,8 +149,8 @@ Then open the app in your browser:
 | `config/settings.py`         | Loads environment variables and global configuration                 |
 | `ingestion/text_cleaner.py`  | Cleans and normalizes raw text                                      |
 | `ingestion/chunker.py`       | Splits documents into overlapping chunks                            |
-| `retrieval/retriever.py`     | Embeds chunks, builds index, and performs vector similarity search  |
-| `generation/summarizer.py`   | Extractive + optional Hugging Face LLM summarization                |
+| `retrieval/retriever.py`     | Builds a TF‑IDF index over chunks and performs cosine similarity search  |
+| `generation/summarizer.py`   | Extractive summarizer + Hugging Face Inference API LLM summarization               |
 | `ui/streamlit_app.py`        | Streamlit UI for interaction, settings, and visualization           |
 
 ***
