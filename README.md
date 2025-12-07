@@ -46,7 +46,7 @@ cd text-summarization-rag
 ### 2️⃣ Create & Activate a Virtual Environment  
 
 ```bash
-python -m venv venv
+python -m venv venv          #Advised to use python 3.11 for downloading all libraries.
 venv\Scripts\activate        # Windows
 # OR
 source venv/bin/activate     # macOS / Linux
