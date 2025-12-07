@@ -53,12 +53,6 @@ source venv/bin/activate     # macOS / Linux
 pip install --upgrade pip setuptools wheel        #For upgrading the base tools
 ```
 
-### 3️⃣ Install CPU‑only PyTorch  
-
-```bash
-pip install torch --index-url https://download.pytorch.org/whl/cpu
-```
-
 ### 3️⃣ Install Dependencies  
 
 ```bash
