@@ -1,6 +1,6 @@
 # 🧠 Text Summarization with RAG  
 
-A practical **Retrieval-Augmented Generation (RAG)** app for long-text summarization, built with **Python** and **Streamlit**. The system ingests large text, builds an embedding-based index, retrieves the most relevant chunks, and generates concise summaries using a modular **ingestion → retrieval → generation** pipeline.  
+A practical **Retrieval-Augmented Generation (RAG)** app for long-text summarization, built with **Python** and **Streamlit**. The system ingests large text, cleans and chunks it, builds a TF‑IDF‑based index over the chunks, retrieves the most relevant ones, and generates concise summaries using a modular **ingestion → retrieval → generation** pipeline.  
 
 ***
 
